@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block body %}
+  <form id="message_form" action="/session/talk" method="post">
+      <p><input type=text name=message>
+      <p><input id="send_button" type=submit value=Send>
+  </form>
+  <ul id="responses">
+  </ul>
+
+  <script src="http://zeptojs.com/zepto.min.js"></script>
+  <script>
+  $("#send_button").click(function(){
+    $.post("/session/talk", $("#message_form").serialize(), function(response){
+      console.log(response);
+      alert(response);
+    });
+    return false;
+  });
+  </script>
+{% endblock %}

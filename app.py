@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import uuid
 
-from flask import Flask, session, request
+from flask import Flask, session, request, render_template
 import aiml
 
 k = aiml.Kernel()
@@ -23,13 +23,10 @@ def hello():
 
 @app.route('/session/')
 def display_chatbot_ui():
-  session['session_id'] = unicode(uuid.uuid4())
-  return '''
-        <form action="/session/talk" method="post">
-            <p><input type=text name=message>
-            <p><input type=submit value=Send>
-        </form>
-    '''
+  if not session['session_id']:
+    session['session_id'] = unicode(uuid.uuid4())
+    app.logger.debug('Session'+  session['session_id'] +'assigned.')
+  return render_template("session_start.html")
 
 
 @app.route('/session/talk', methods=['POST'])
@@ -39,6 +36,7 @@ def create_message():
   message_sent = request.form['message']
   session_id = session['session_id']
   ai_message = k.respond(message_sent, 'session_id')
+  app.logger.debug(session_id)
   #flash('New entry was successfully posted')
   return ai_message
 
