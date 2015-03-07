@@ -1,20 +1,42 @@
 {% extends "layout.html" %}
 {% block body %}
-  <form id="message_form" action="/session/talk" method="post">
-      <p><input type=text name=message>
-      <p><input id="send_button" type=submit value=Send>
+<div class="container">
+  <form class="form-horizontal" id="message_form" action="/session/talk" method="post">
+    <fieldset>
+
+      <div class="form-group">
+                  <label class="control-label">Message Input</label>
+                  <div class="input-group">
+                    <input id="text_message" type="text" class="form-control" name=message>
+                    <span class="input-group-btn">
+                      <button id="send_button" class="btn btn-default" type="button">Send</button>
+                    </span>
+                  </div>
+                </div>
+    </fieldset>
   </form>
-  <ul id="responses">
-  </ul>
+  <div>
+    <ul id="answers_list" class="list-group">
+      <li class="list-group-item" />
+    </ul>
+  </div>
 
   <script src="http://zeptojs.com/zepto.min.js"></script>
   <script>
-  $("#send_button").click(function(){
-    $.post("/session/talk", $("#message_form").serialize(), function(response){
-      console.log(response);
-      alert(response);
+  "use strict";
+
+  Zepto(function($){
+    $("#send_button").click(function(){
+      $("#answers_list").append("<li class='list-group-item active'>"+$("#text_message").val()+"</li>");
+      console.log($("#text_message").val());
+      $.post("/session/talk", $("#message_form").serialize(), function(response){
+        $("#answers_list").append("<li class='list-group-item'>"+response+"</li>");
+        console.log(response);
+        //alert(response);
+      });
+      return false;
     });
-    return false;
   });
   </script>
+</div>
 {% endblock %}

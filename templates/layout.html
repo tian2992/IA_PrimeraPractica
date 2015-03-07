@@ -1,12 +1,19 @@
 <!doctype html>
-<title>My Chatbot</title>
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-{% block body %}{% endblock %}
+<html>
+  <head>
+    <title>My Chatbot</title>
+    <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css" />
+  </head>
+  <body>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class=flashes>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+    {% block body %}{% endblock %}
+  </body>
+</html>
