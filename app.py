@@ -38,11 +38,11 @@ def create_message():
       abort(401)
   message_sent = request.form['message']
   session_id = session['session_id']
-  ai_message = k.respond('message', 'session_id')
+  ai_message = k.respond(message_sent, 'session_id')
   #flash('New entry was successfully posted')
   return ai_message
 
 
 if __name__ == "__main__":
-  app.run(debug=True)
+  app.run(debug=True, host='0.0.0.0')
 
