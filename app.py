@@ -19,7 +19,7 @@ app.secret_key = 'oDgYSmjdFgEqCQDuTlQX'
 
 @app.route("/")
 def hello():
-  return "Hello world"
+  return "Bienvenido"
 
 @app.route('/session/')
 def display_chatbot_ui():
